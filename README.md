@@ -1,89 +1,82 @@
-# Data Science Project Boilerplate
+# **Cervical Cancer Analysis**  
 
-This boilerplate is designed to kickstart data science projects by providing a basic setup for database connections, data processing, and machine learning model development. It includes a structured folder organization for your datasets and a set of pre-defined Python packages necessary for most data science tasks.
+## **Overview**  
+This project aims to analyze cervical cancer data to identify risk factors and improve early detection strategies. The analysis is motivated by both personal experience and a deep interest in understanding the variables that contribute to the diagnosis and progression of cervical cancer.  
 
-## Structure
+By leveraging machine learning and statistical analysis, this study seeks to uncover patterns that may enhance awareness and prevention of the disease.  
 
-The project is organized as follows:
+## **Dataset**  
+- **Source**: Collected at *Hospital Universitario de Caracas* in Caracas, Venezuela.  
+- **Size**: Contains information on **858 patients**.  
+- **Features**: Includes **demographic details, lifestyle habits, and medical history records**.  
+- **Missing Data**: Some patients chose not to answer certain questions due to privacy concerns.  
 
-- `app.py` - The main Python script that you run for your project.
-- `explore.py` - A notebook to explore data, play around, visualize, clean, etc. Ideally the notebook code should be migrated to the app.py when moving to production.
-- `utils.py` - This file contains utility code for operations like database connections.
-- `requirements.txt` - This file contains the list of necessary python packages.
-- `models/` - This directory should contain your SQLAlchemy model classes.
-- `data/` - This directory contains the following subdirectories:
-  - `interin/` - For intermediate data that has been transformed.
-  - `processed/` - For the final data to be used for modeling.
-  - `raw/` - For raw data without any processing.
- 
-    
-## Setup
+## **Project Structure**  
+📂 cervical-cancer-analysis
+│-- 📂 data
+│ │-- 📂 raw (Contains the original dataset in ZIP format)
+│ │-- 📂 processed (Preprocessed dataset ready for analysis)
+│ │-- 📂 interim (Intermediate transformations, if any)
+│
+│-- 📂 models (Trained machine learning models will be stored here)
+│-- 📂 src
+│ │-- app.py (Main script for running predictions)
+│ │-- explore.ipynb (Exploratory Data Analysis notebook)
+│ │-- utils.py (Helper functions for data preprocessing and analysis)
+│
+│-- .gitignore
+│-- README.md
+│-- requirements.txt (List of dependencies needed to run the project)
 
-**Prerequisites**
 
-Make sure you have Python 3.11+ installed on your. You will also need pip for installing the Python packages.
+## **Variables in the Dataset**  
+The dataset includes multiple features related to cervical cancer risk factors:  
 
-**Installation**
+### **General Variables**  
+- **`Age`**: *The person's age.*  
+- **`Number of sexual partners`**: *The number of sexual partners the person has had.*  
+- **`First sexual intercourse (age)`**: *Age at first sexual intercourse.*  
+- **`Num of pregnancies`**: *Number of pregnancies the person has had.*  
 
-Clone the project repository to your local machine.
+### **Risk Habits**  
+- **`Smokes`**: *Whether the person smokes (Yes/No).*  
+- **`Smokes (years)`**: *Number of years the person has been smoking.*  
+- **`Smokes (packs/year)`**: *Number of cigarette packs smoked per year.*  
 
-Navigate to the project directory and install the required Python packages:
+### **Use of Contraceptives**  
+- **`Hormonal Contraceptives`**: *Whether the person uses hormonal contraceptives (Yes/No).*  
+- **`Hormonal Contraceptives (years)`**: *Number of years the person has been using hormonal contraceptives.*  
+- **`IUD`**: *Whether the person has used an intrauterine device (IUD) (Yes/No).*  
+- **`IUD (years)`**: *Number of years with an IUD.*  
 
-```bash
-pip install -r requirements.txt
-```
+### **Sexually Transmitted Diseases (STDs)**  
+- **`STDs`**: *Whether the person has had any sexually transmitted disease (Yes/No).*  
+- **`STDs (number)`**: *Number of STDs the person has had.*  
+- **`STDs:condylomatosis`**, **`STDs:cervical condylomatosis`**, **`STDs:vaginal condylomatosis`**, **`STDs:vulvo-perineal condylomatosis`**: *Different types of condylomas (genital warts caused by HPV).*  
+- **`STDs:syphilis`**, **`STDs:pelvic inflammatory disease`**, **`STDs:genital herpes`**, **`STDs:molluscum contagiosum`**, **`STDs:AIDS`**, **`STDs:HIV`**, **`STDs:Hepatitis B`**, **`STDs:HPV`**: *Indicators of whether the person has had these specific diseases.*  
 
-**Create a database (if needed)**
+### **STD Diagnosis History**  
+- **`STDs: Number of diagnosis`**: *Total number of STD diagnoses received.*  
+- **`STDs: Time since first diagnosis`**: *Time in years since the first STD diagnosis.*  
+- **`STDs: Time since last diagnosis`**: *Time in years since the last STD diagnosis.*  
 
-Create a new database within the Postgres engine by customizing and executing the following command: `$ createdb -h localhost -U <username> <db_name>`
-Connect to the Postgres engine to use your database, manipulate tables and data: `$ psql -h localhost -U <username> <db_name>`
-NOTE: Remember to check the ./.env file information to get the username and db_name.
+### **Medical Diagnoses**  
+- **`Dx:Cancer`**: *Whether the person has been diagnosed with cancer.*  
+- **`Dx:CIN`**: *Whether the person has been diagnosed with Cervical Intraepithelial Neoplasia (CIN), a precancerous cervical lesion.*  
+- **`Dx:HPV`**: *Whether the person has been diagnosed with human papillomavirus (HPV).*  
+- **`Dx`**: *General positive diagnosis of a related medical condition.*  
 
-Once you are inside PSQL you will be able to create tables, make queries, insert, update or delete data and much more!
+### **Target Variables**  
+These variables are likely used to predict cervical cancer:  
+- **`Hinselmann: target variable`**: *Result of the Hinselmann test (colposcopy with acetic acid).*  
+- **`Schiller: target variable`**: *Result of the Schiller test (colposcopy with Lugol's iodine).*  
+- **`Cytology: target variable`**: *Result of the cytology test (Pap smear).*  
+- **`Biopsy: target variable`**: *Result of the biopsy test (definitive confirmation of cancer or precancerous lesions).*  
 
-**Environment Variables**
+## **Installation and Setup**  
+To run this project locally, follow these steps:  
 
-Create a .env file in the project root directory to store your environment variables, such as your database connection string:
-
-```makefile
-DATABASE_URL="your_database_connection_url_here"
-```
-
-## Running the Application
-
-To run the application, execute the app.py script from the root of the project directory:
-
-```bash
-python app.py
-```
-
-## Adding Models
-
-To add SQLAlchemy model classes, create new Python script files inside the models/ directory. These classes should be defined according to your database schema.
-
-Example model definition (`models/example_model.py`):
-
-```py
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
-
-Base = declarative_base()
-
-class ExampleModel(Base):
-    __tablename__ = 'example_table'
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-
-```
-
-## Working with Data
-
-You can place your raw datasets in the data/raw directory, intermediate datasets in data/interim, and the processed datasets ready for analysis in data/processed.
-
-To process data, you can modify the app.py script to include your data processing steps, utilizing pandas for data manipulation and analysis.
-
-## Contributors
-
-This template was built as part of the 4Geeks Academy [Data Science and Machine Learning Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning) by [Alejandro Sanchez](https://twitter.com/alesanchezr) and many other contributors. Find out more about [4Geeks Academy's BootCamp programs](https://4geeksacademy.com/us/programs) here.
-
-Other templates and resources like this can be found on the school GitHub page.
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/Elisag28/Cervical_Cancer.git
+   cd Cervical_Cancer
